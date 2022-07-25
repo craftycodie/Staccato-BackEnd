@@ -1,11 +1,12 @@
+import Album from '../aggregates/Album';
 import AlbumId from '../value-objects/AlbumId';
 import TrackId from '../value-objects/TrackId';
 
-export interface IAlbumRepository<Aggregate, Model> {
-	save: (target: Aggregate) => Promise<void>
-	findById: (id: AlbumId) => Promise<Aggregate | null>
-	findByTrackId: (id: TrackId) => Promise<Aggregate | null>
-	getAll: (count: number | undefined) => Promise<Aggregate[]>
+export default interface IAlbumRepository {
+	save: (target: Album) => Promise<void>
+	findById: (id: AlbumId) => Promise<Album | null>
+	findByTrackId: (id: TrackId) => Promise<Album | null>
+	getAll: (count: number | undefined) => Promise<Album[]>
 }
 
-export default IAlbumRepository;
+export const IAlbumRepositorySymbol = Symbol("IAlbumRepository");

@@ -1,16 +1,19 @@
 import { Controller, Get, Inject } from '@nestjs/common';
 import ILogger, { ILoggerSymbol } from '../../../ILogger';
+import { QueryBus } from '@nestjs/cqrs';
+import { ListAlbumsQuery } from 'src/application/queries/ListAlbumsQuery';
 
 @Controller()
 export class AlbumController {
   constructor(
-    @Inject(ILoggerSymbol) private readonly logger: ILogger
+    @Inject(ILoggerSymbol) private readonly logger: ILogger,
+    private readonly queryBus: QueryBus,
   ) {}
 
   @Get()
-  getHello(): string {
-    this.logger.debug("Hit Conteoller.")
-    return "Hello, World!"
-    // return this.appService.getHello();
+  async getHello() {
+    this.logger.debug("Hit Controller.")
+    const res = await this.queryBus.execute(new ListAlbumsQuery(10));
+    return res
   }
 }

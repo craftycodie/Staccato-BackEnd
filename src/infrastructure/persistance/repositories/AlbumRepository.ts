@@ -1,9 +1,9 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import AlbumId from "src/domain/value-objects/AlbumId";
 import TrackId from "src/domain/value-objects/TrackId";
 import AlbumAggregate from "../../../domain/aggregates/Album";
 import IAlbumRepository from "../../../domain/repositories/IAlbumRepository";
-import ILogger from "../../../ILogger";
+import ILogger, { ILoggerSymbol } from "../../../ILogger";
 import Album from "../datamodels/Album";
 import Track from "../datamodels/Track";
 import AlbumDomainMapper from "../mappers/AlbumDomainMapper";
@@ -11,12 +11,12 @@ import AlbumPersistanceMapper from "../mappers/AlbumPersistanceMapper";
 import MySQLConnection from "../MySQLConnection";
 
 @Injectable()
-export default class AlbumRepository implements IAlbumRepository<AlbumAggregate, Album>  {
+export default class AlbumRepository implements IAlbumRepository  {
     constructor(
-        private readonly logger: ILogger,
-        private readonly  connection: MySQLConnection,
-        private readonly  albumDomainMapper: AlbumDomainMapper,
-        private readonly  albumPersistanceMapper: AlbumPersistanceMapper,
+        @Inject(ILoggerSymbol) private readonly logger: ILogger,
+        // private readonly connection: MySQLConnection,
+        private readonly albumDomainMapper: AlbumDomainMapper,
+        private readonly albumPersistanceMapper: AlbumPersistanceMapper,
     ) {
     }
 

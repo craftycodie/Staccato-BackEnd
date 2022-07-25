@@ -1,16 +1,16 @@
-// import { Injectable } from "@nestjs/common";
-// import Album from "../../domain/aggregates/Album";
-// import AlbumRepository from "../../infrastructure/persistance/repositories/AlbumRepository";
-// import IQueryHandler from "../IQueryHandler";
-// import { ListAlbumsQuery } from "../queries/ListAlbumsQuery";
+import { Inject } from "@nestjs/common";
+import { QueryHandler, IQueryHandler } from "@nestjs/cqrs";
+import IAlbumRepository, { IAlbumRepositorySymbol } from "src/domain/repositories/IAlbumRepository";
+import { ListAlbumsQuery } from "../queries/ListAlbumsQuery";
 
-// @Injectable()
-// export class ListAlbumsQueryHandler implements IQueryHandler<ListAlbumsQuery, Promise<Album[]>> {
-//     constructor(
-//         private repository: AlbumRepository
-//     ) {}
+@QueryHandler(ListAlbumsQuery)
+export class ListAlbumsQueryHandler implements IQueryHandler<ListAlbumsQuery> {
+    constructor(
+        @Inject(IAlbumRepositorySymbol) private repository: IAlbumRepository
+    ) {}
 
-//     async execute(query: ListAlbumsQuery) {
-//         return await this.repository.getAll(query.count);
-//     }
-// }
+    async execute(command: ListAlbumsQuery) {
+        return await this.repository.getAll(command.count)
+    }
+}
+
