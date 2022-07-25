@@ -1,34 +1,18 @@
-import { ValueObject, Result } from 'types-ddd';
+import { TinyTypeOf } from 'tiny-types';
 
-interface GenreProp {
-	value: string
-};
-
-export class GenreValueObject extends ValueObject<GenreProp>{
-	private constructor (props: GenreProp){
-		super(props);
-	}
-
-	get value (): string {
-		return this.props.value.toLowerCase();
-	}
+export default class Genre extends TinyTypeOf<string>() {
 
 	public static isValidValue (value:string): boolean {
 		return value.length <= 80 && !value.includes(',');
 	}
 
-	public static create (value: string): Result<GenreValueObject>{
-		
-		const isValidValue = GenreValueObject.isValidValue(value);
+	public static create (value: string): Genre{
+		const isValidValue = Genre.isValidValue(value);
 
-		if(!isValidValue) {
-			return Result.fail(
-				'Invalid Genre. Max 80 chars', 
-			);
-		}
+        if (!isValidValue) {
+		    throw new Error(`Invalid genre string ${value}.`)
+        }
 
-		return Result.ok(new GenreValueObject({ value: value.toLowerCase() }));
+        return new Genre(value);
 	}
 }
-
-export default GenreValueObject;

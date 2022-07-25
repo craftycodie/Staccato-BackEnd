@@ -1,5 +1,5 @@
-import { Container } from "inversify";
+// import { Container } from "inversify";
 
-export default interface IModule {
-    register(container: Container): void;
-}
+// export default interface IModule {
+//     register(container: Container): void;
+// }

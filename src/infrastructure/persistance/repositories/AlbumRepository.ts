@@ -1,6 +1,6 @@
-import { id, inject, injectable } from "inversify";
-import { AggregateRoot, UniqueEntityID } from "types-ddd";
-import CoreDependencyIdentifiers from "../../../CoreDependencyIdentifiers";
+import { Injectable } from "@nestjs/common";
+import AlbumId from "src/domain/value-objects/AlbumId";
+import TrackId from "src/domain/value-objects/TrackId";
 import AlbumAggregate from "../../../domain/aggregates/Album";
 import IAlbumRepository from "../../../domain/repositories/IAlbumRepository";
 import ILogger from "../../../ILogger";
@@ -9,38 +9,28 @@ import Track from "../datamodels/Track";
 import AlbumDomainMapper from "../mappers/AlbumDomainMapper";
 import AlbumPersistanceMapper from "../mappers/AlbumPersistanceMapper";
 import MySQLConnection from "../MySQLConnection";
-import PersistanceDependencyIdentifiers from "../PersistanceDependencyIdentifiers";
 
-@injectable()
+@Injectable()
 export default class AlbumRepository implements IAlbumRepository<AlbumAggregate, Album>  {
     constructor(
-        @inject(CoreDependencyIdentifiers.ILogger) logger: ILogger,
-        @inject(PersistanceDependencyIdentifiers.MySQLConnection) connection: MySQLConnection,
-        @inject(PersistanceDependencyIdentifiers.AlbumDomainMapper) albumDomainMapper: AlbumDomainMapper,
-        @inject(PersistanceDependencyIdentifiers.AlbumPersistanceMapper) albumPersistanceMapper: AlbumPersistanceMapper,
+        private readonly logger: ILogger,
+        private readonly  connection: MySQLConnection,
+        private readonly  albumDomainMapper: AlbumDomainMapper,
+        private readonly  albumPersistanceMapper: AlbumPersistanceMapper,
     ) {
-        this.logger = logger;
-        this.connection = connection;
-        this.albumDomainMapper = albumDomainMapper;
-        this.albumPersistanceMapper = albumPersistanceMapper;
     }
-
-    private logger: ILogger;
-    private connection: MySQLConnection;
-    private albumDomainMapper: AlbumDomainMapper;
-    private albumPersistanceMapper: AlbumPersistanceMapper;
 
 	public async save(target: AlbumAggregate) {
         this.logger.debug(`Saving album ${target.name}.`)
     }
 
-	public async findById(id: UniqueEntityID) {
+	public async findById(id: AlbumId) {
         this.logger.debug(`Fetching album ${id}.`)
 
         return null;
     }
 
-	public async findByTrackId(id: UniqueEntityID) {
+	public async findByTrackId(id: TrackId) {
         this.logger.debug(`Fetching album for track ${id}.`)
 
         return null;

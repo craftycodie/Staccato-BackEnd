@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
+import { Injectable } from "@nestjs/common";
 import AbstractJsonFileSettings from "../../AbstractJsonFileSettings";
 import { PersistanceSettingsProps } from "./IPersistanceSettings";
 
-@injectable()
+@Injectable()
 export default class PersistanceSettings extends AbstractJsonFileSettings<PersistanceSettingsProps> {
     public get() {
         return <PersistanceSettingsProps>(this.getFullConfig().persistance)

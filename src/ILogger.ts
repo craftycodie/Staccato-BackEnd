@@ -3,3 +3,5 @@ export default interface ILogger {
     info(info: any): void;
     warn(info: any): void;
 };
+
+export const ILoggerSymbol = Symbol("ILogger");

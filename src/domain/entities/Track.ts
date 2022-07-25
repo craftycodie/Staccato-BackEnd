@@ -1,46 +1,38 @@
-import { BaseDomainEntity, DomainId, Entity, Result } from "types-ddd";
+import GenreValueObject from "../value-objects/Genre";
+import TrackId from "../value-objects/TrackId";
 
-export interface TrackMetadata {
+export interface TrackProps {
+    id: TrackId;
+
     name: string;
     artist: string;
-    genre: string[];
-}
+    genre: GenreValueObject[];
 
-export interface TrackProps extends BaseDomainEntity, TrackMetadata {
     deleted: boolean;
 }
 
-export default class Track extends Entity<TrackProps> {
-    private constructor(props: TrackProps, id?: DomainId) {
-        super(props, Track.name)
+export default class Track implements TrackProps {
+    public constructor(props: TrackProps) {
+        Object.assign(this, props)
     }
 
-    get name (): string {
-        return this.props.name;
-    }
+    id: TrackId;
 
-    get artist (): string {
-        return this.props.artist;
-    }
+    name: string;
+    artist: string;
+    genre: GenreValueObject[];
 
-    get genre (): string[] {
-        return this.props.genre;
-    }
+    deleted: boolean;
 
-    updateMetadata (metadata: Partial<TrackMetadata>): void {
-        if (metadata.artist != undefined)
-            this.props.artist = metadata.artist;
-        if (metadata.name != undefined)
-            this.props.name = metadata.name;
-        if (metadata.genre != undefined)
-            this.props.genre = metadata.genre;
+    updateMetadata (metadata: Partial<Omit<TrackProps, 'id' | 'deleted'>>): void {
+        Object.assign(this, metadata)
     }
 
     delete (): void {
-        this.props.deleted = true;
+        this.deleted = true;
     }
 
-    static create (props: TrackProps): Result<Track, string> {
-        return Result.ok<Track>(new Track(props))
+    static create (props: Omit<TrackProps, 'id'>): Track {
+        return new Track({...props, id: TrackId.create()})
     }
 }

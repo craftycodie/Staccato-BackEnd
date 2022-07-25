@@ -1,7 +1,7 @@
-import { injectable } from 'inversify';
+import { Injectable } from '@nestjs/common';
 import * as config from '../../settings.json';
 
-@injectable()
+@Injectable()
 export default abstract class AbstractJsonFileSettings<T> {
     protected getFullConfig(): any {
         return config;

@@ -1,8 +1,8 @@
-import { injectable } from "inversify";
+import { Injectable } from "@nestjs/common";
 import Album from "../../../domain/aggregates/Album";
 import PersistanceAlbum from "../datamodels/Album";
 
-@injectable()
+@Injectable()
 export default class AlbumPersistanceMapper {
     public mapToDataModel(album: Album): PersistanceAlbum {
         return {

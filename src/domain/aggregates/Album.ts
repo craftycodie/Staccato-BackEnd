@@ -1,71 +1,40 @@
-import Track, { TrackMetadata } from "../entities/Track";
+import Track, { TrackProps } from "../entities/Track";
 
-import { 
-	AggregateRoot, 
-	Result, 
-	BaseDomainEntity,
-	DomainId,
-} from 'types-ddd';
+import AlbumId from "../value-objects/AlbumId";
+import TrackId from "../value-objects/TrackId";
 
-import AlbumCreatedEvent from "../events/AlbumCreatedEvent";
-import AlbumTrackAddedEvent from "../events/AlbumTrackAddedEvent";
-import AlbumTracksDeletedEvent from "../events/AlbumTracksDeletedEvent";
-import AlbumDeletedEvent from "../events/AlbumDeletedEvent";
-import AlbumTrackUpdatedEvent from "../events/AlbumTrackUpdatedEvent";
+interface AlbumProps {
+	id: AlbumId;
 
-interface AlbumProps extends BaseDomainEntity {
     name: string;
     tracks: Track[];
 
 	deleted: boolean;
 }
 
-export default class Album extends AggregateRoot<AlbumProps> {
-	private constructor (props: AlbumProps, didCreate?: boolean) {
-		super(props, Album.name);
-
-		if (didCreate) {
-			this.addDomainEvent(new AlbumCreatedEvent(
-				this.props.ID.value,
-				this.props.name
-			))
-		}
+export default class Album implements AlbumProps {
+	public constructor (props: AlbumProps) {
+		Object.assign(this, props);
 	}
 
-	get name (): string {
-		return this.props.name;
-	}
+	// TODO: Give these private setters.
+	public id: AlbumId;
 
-	get tracks (): Track[] {
-		return this.props.tracks;
-	}
+    public name: string;
+    public tracks: Track[];
 
-	get deleted (): boolean {
-		return this.props.deleted
-	}
+	public deleted: boolean;
 
 	addTrack (track: Track): void {
-		this.props.tracks.push(track);
-		
-		this.addDomainEvent(new AlbumTrackAddedEvent(
-			this.props.ID.value,
-			track.id.value,
-			track.name, 
-			track.artist,
-			track.genre
-		))
+		this.tracks.push(track);
 	}
 
 	delete (): void {
-		this.props.deleted = true;
-
-		this.addDomainEvent(new AlbumDeletedEvent(
-			this.props.ID.value
-		))
+		this.deleted = true;
 	}
 
-	deleteTracks (trackIds: DomainId[]): void {
-		var matchingTracks = this.props.tracks.filter(track => trackIds.includes(track.id));
+	deleteTracks (trackIds: TrackId[]): void {
+		var matchingTracks = this.tracks.filter(track => trackIds.includes(track.id));
 
 		// if (matchingTracks.length != trackIds.length) {
 		// 				return Result.fail(
@@ -76,28 +45,15 @@ export default class Album extends AggregateRoot<AlbumProps> {
 		matchingTracks.forEach(track => {
 			track.delete();
 		});
-
-		this.addDomainEvent(new AlbumTracksDeletedEvent(
-			this.props.ID.value,
-			matchingTracks.map(track => track.id.value)
-		))
 	}
 
-	updateTrack (trackId: DomainId, updatedTrackMetadata: Partial<TrackMetadata>): void {
-		var track = this.props.tracks.filter(track => track.id === trackId)[0];
+	updateTrack (trackId: TrackId, updatedTrackMetadata: Partial<TrackProps>): void {
+		var track = this.tracks.filter(track => track.id === trackId)[0];
 
 		track.updateMetadata(updatedTrackMetadata);
-
-		this.addDomainEvent(new AlbumTrackUpdatedEvent(
-			this.props.ID.value,
-			track.id.value,
-			track.name, 
-			track.artist,
-			track.genre
-		))	
 	}
 
-	public static create (props: AlbumProps): Result<Album> {
-		return Result.ok<Album>(new Album(props));
+	public static create (props: AlbumProps): Album {
+		return new Album({...props, id: AlbumId.create()});
 	}
 }

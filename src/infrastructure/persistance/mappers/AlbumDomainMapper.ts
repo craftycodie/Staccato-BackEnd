@@ -1,21 +1,19 @@
 import Album from "../datamodels/Album";
 import AggregateAlbum from "../../../domain/aggregates/Album";
-import { DomainId, Result } from "types-ddd";
 import Track from "../datamodels/Track";
-import { inject, injectable } from "inversify";
-import CoreDependencyIdentifiers from "../../../CoreDependencyIdentifiers";
 import ILogger from "../../../ILogger";
 import TrackEntity from "../../../domain/entities/Track";
+import { Injectable } from "@nestjs/common";
+import TrackId from "src/domain/value-objects/TrackId";
+import AlbumId from "src/domain/value-objects/AlbumId";
+import Genre from "src/domain/value-objects/Genre";
 
-@injectable()
+@Injectable()
 export default class AlbumDomainMapper {
     constructor(
-        @inject(CoreDependencyIdentifiers.ILogger) logger: ILogger,
-    ) {
-        this.logger = logger;
-    }
+        private readonly logger: ILogger,
+    ) { }
 
-    private logger: ILogger;
 
     public mapToDomainModel(album: Album, tracks: Track[]): AggregateAlbum {
         const matchingTracks = tracks.filter(track => album.trackIds.includes(track.id))
@@ -24,35 +22,23 @@ export default class AlbumDomainMapper {
             throw new Error("Album Tracks Mismatch!")
         }
 
-        const mappedTracks: TrackEntity[] = matchingTracks.map(track => {
-            const result = TrackEntity.create({
-                ID: DomainId.create(track.id),
+        const mappedTracks: TrackEntity[] = matchingTracks.map(track => 
+            new TrackEntity({
+                id: new TrackId(track.id),
                 name: track.name,
-                genre: track.genre,
+                genre: track.genre.map(genre => new Genre(genre)),
                 artist: track.artist,
                 deleted: track.deleted
-            });
+            })
+        );
 
-            if (result.isFailure) {
-                this.logger.warn("Failed to map album to domain, unexpected track error.")
-                throw new Error(result.errorValue())
-            }
-
-            return result.getResult()
-        });
-
-        const aggregateAlbum = AggregateAlbum.create({
-            ID: DomainId.create(album.id),
+        const aggregateAlbum = new AggregateAlbum({
+            id: new AlbumId(album.id),
             name: album.name,
             tracks: mappedTracks,
             deleted: album.deleted,
         });
 
-        if (aggregateAlbum.isFailure) {
-            this.logger.warn("Failed to map album to domain, unexpected track error.")
-            throw new Error(aggregateAlbum.errorValue())
-        }
-
-        return aggregateAlbum.getResult()
+        return aggregateAlbum
     }
 }
