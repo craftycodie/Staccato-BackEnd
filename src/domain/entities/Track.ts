@@ -1,4 +1,4 @@
-import { BaseDomainEntity, Entity } from "types-ddd";
+import { BaseDomainEntity, DomainId, Entity, Result } from "types-ddd";
 
 export interface TrackMetadata {
     name: string;
@@ -11,7 +11,7 @@ export interface TrackProps extends BaseDomainEntity, TrackMetadata {
 }
 
 export default class Track extends Entity<TrackProps> {
-    private constructor(props: TrackProps) {
+    private constructor(props: TrackProps, id?: DomainId) {
         super(props, Track.name)
     }
 
@@ -38,5 +38,9 @@ export default class Track extends Entity<TrackProps> {
 
     delete (): void {
         this.props.deleted = true;
+    }
+
+    static create (props: TrackProps): Result<Track, string> {
+        return Result.ok<Track>(new Track(props))
     }
 }

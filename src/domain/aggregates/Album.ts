@@ -21,13 +21,15 @@ interface AlbumProps extends BaseDomainEntity {
 }
 
 export default class Album extends AggregateRoot<AlbumProps> {
-	private constructor (props: AlbumProps) {
+	private constructor (props: AlbumProps, didCreate?: boolean) {
 		super(props, Album.name);
 
-		this.addDomainEvent(new AlbumCreatedEvent(
-			this.props.ID.value,
-			this.props.name
-		))
+		if (didCreate) {
+			this.addDomainEvent(new AlbumCreatedEvent(
+				this.props.ID.value,
+				this.props.name
+			))
+		}
 	}
 
 	get name (): string {
@@ -36,6 +38,10 @@ export default class Album extends AggregateRoot<AlbumProps> {
 
 	get tracks (): Track[] {
 		return this.props.tracks;
+	}
+
+	get deleted (): boolean {
+		return this.props.deleted
 	}
 
 	addTrack (track: Track): void {

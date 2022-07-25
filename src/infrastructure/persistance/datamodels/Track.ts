@@ -4,4 +4,6 @@ export default interface Track {
     name: string;
     artist: string;
     genre: string[];
+
+    deleted: boolean;
 }

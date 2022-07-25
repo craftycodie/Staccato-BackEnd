@@ -14,7 +14,7 @@ export class GenreValueObject extends ValueObject<GenreProp>{
 	}
 
 	public static isValidValue (value:string): boolean {
-		return value.length <= 80;
+		return value.length <= 80 && !value.includes(',');
 	}
 
 	public static create (value: string): Result<GenreValueObject>{

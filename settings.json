@@ -1,3 +1,11 @@
 {
-    "port": 8080
+    "presentation": {
+        "port": 8080
+    },
+    "persistance": {
+        "host": "173.205.84.241",
+        "user": "mc136043",
+        "password": "6c2399a221",
+        "database": "mc136043"
+    }
 }

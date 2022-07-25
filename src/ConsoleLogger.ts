@@ -3,11 +3,15 @@ import ILogger from "./ILogger";
 
 @injectable()
 export default class ConsoleLogger implements ILogger {
-    public debug(info: string) {
+    public debug(info: any) {
         console.info(info);
     }
 
-    public info(info: string) {
+    public info(info: any) {
         console.info(info);
+    }
+
+    public warn(info: any) {
+        console.warn(info);
     }
 }
