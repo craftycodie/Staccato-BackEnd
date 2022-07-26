@@ -10,6 +10,11 @@ const migration: IMigration = {
       },
       name: DataTypes.STRING,
       deleted: DataTypes.TINYINT({ length: 1 }),
+
+      // Sequelize model fields.
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+      deletedAt: DataTypes.DATE,
     });
 
     await queryInterface.createTable('Tracks', {
@@ -20,9 +25,15 @@ const migration: IMigration = {
       albumId: {
         type: DataTypes.STRING(36),
       },
+      artist: DataTypes.STRING,
       name: DataTypes.STRING,
       genre: DataTypes.STRING,
       deleted: DataTypes.TINYINT({ length: 1 }),
+
+      // Sequelize model fields.
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
+      deletedAt: DataTypes.DATE,
     });
   },
 

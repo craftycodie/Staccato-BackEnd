@@ -41,29 +41,29 @@ export default class AlbumRepository implements IAlbumRepository {
   public async getAll(count: number | undefined) {
     this.logger.debug(`Listing albums.`);
 
+    // Grab all albums (limtied by the provided count)
     const albums = await this.albumModel.findAll({ limit: count });
 
-    // const testAlbum: Album = new Album({
-    //     id: "foo",
-    //     name: "life changing moments seem minor in pictures",
-    //     trackIds: [ "test" ],
-    //     deleted: false
-    // });
 
-    // const tracks = await this.connection.get().query("SELECT * FROM Track")
-    // this.logger.debug(tracks);
+    // Grab all tracks matching the albums
+    const tracks = await this.trackModel.findAll({
+      where: { albumId: albums.map((album) => album.id) },
+    });
 
-    const testTracks: Track[] = [
-      new Track({
-        id: 'test',
-        name: 'Now what?',
-        artist: 'C418',
-        genre: ['ambient', 'electronica', 'breakbeat'],
-        deleted: false,
-      }),
-    ];
+    const albumsAndTracks: { album: Album; tracks: Track[] }[] = albums.map(
+      (album) => {
+        return {
+          album: album,
+          tracks: tracks.filter((track) => track.albumId === album.id),
+        };
+      },
+    );
 
-    return [this.mapToAggregateRoot(albums[0], albums[0].tracks)];
+    const albumAggregates = albumsAndTracks.map((albumAndTracks) =>
+      this.mapToAggregateRoot(albumAndTracks.album, albumAndTracks.tracks),
+    );
+
+    return albumAggregates;
   }
 
   protected mapToDataModel(album: AlbumAggregate) {
