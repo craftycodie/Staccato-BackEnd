@@ -1,7 +1,7 @@
-import { Uuid } from "./Uuid"
+import { Uuid } from './Uuid';
 
 export default class AlbumId extends Uuid {
-    static create(): AlbumId {
-        return super.create();
-    }
+  static create(): AlbumId {
+    return super.create();
+  }
 }

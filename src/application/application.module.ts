@@ -3,10 +3,10 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { PersistanceModule } from 'src/infrastructure/persistance/persistance.module';
 import { ListAlbumsQueryHandler } from './queryHandlers/ListAlbumsQueryHandler';
 
-export const QueryHandlers = [ ListAlbumsQueryHandler ]
+export const QueryHandlers = [ListAlbumsQueryHandler];
 
 @Module({
-    imports: [CqrsModule, PersistanceModule],
-    providers: [...QueryHandlers]
+  imports: [CqrsModule, PersistanceModule],
+  providers: [...QueryHandlers],
 })
 export class ApplicationModule {}

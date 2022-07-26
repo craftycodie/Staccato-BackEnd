@@ -7,9 +7,14 @@ import { PresentationModule } from './infrastructure/presentation/presentation.m
 
 @Global()
 @Module({
-  imports: [ApplicationModule, DomainModule, PersistanceModule, PresentationModule],
+  imports: [
+    ApplicationModule,
+    DomainModule,
+    PersistanceModule,
+    PresentationModule,
+  ],
   controllers: [],
-  providers: [{provide: ILoggerSymbol, useClass: ConsoleLogger}],
-  exports: [ILoggerSymbol]
+  providers: [{ provide: ILoggerSymbol, useClass: ConsoleLogger }],
+  exports: [ILoggerSymbol],
 })
 export class StaccatoModule {}

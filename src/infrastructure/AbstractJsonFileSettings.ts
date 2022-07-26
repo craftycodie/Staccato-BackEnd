@@ -3,9 +3,9 @@ import * as config from '../../settings.json';
 
 @Injectable()
 export default abstract class AbstractJsonFileSettings<T> {
-    protected getFullConfig(): any {
-        return config;
-    }
+  protected getFullConfig(): any {
+    return config;
+  }
 
-    public abstract get(): T;
+  public abstract get(): T;
 }

@@ -12,8 +12,8 @@ export class AlbumController {
 
   @Get()
   async getHello() {
-    this.logger.debug("Hit Controller.")
+    this.logger.debug('Hit Controller.');
     const res = await this.queryBus.execute(new ListAlbumsQuery(10));
-    return res
+    return res;
   }
 }

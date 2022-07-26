@@ -1,38 +1,38 @@
-import GenreValueObject from "../value-objects/Genre";
-import TrackId from "../value-objects/TrackId";
+import GenreValueObject from '../value-objects/Genre';
+import TrackId from '../value-objects/TrackId';
 
 export interface TrackProps {
-    id: TrackId;
+  id: TrackId;
 
-    name: string;
-    artist: string;
-    genre: GenreValueObject[];
+  name: string;
+  artist: string;
+  genre: GenreValueObject[];
 
-    deleted: boolean;
+  deleted: boolean;
 }
 
 export default class Track implements TrackProps {
-    public constructor(props: TrackProps) {
-        Object.assign(this, props)
-    }
+  public constructor(props: TrackProps) {
+    Object.assign(this, props);
+  }
 
-    id: TrackId;
+  id: TrackId;
 
-    name: string;
-    artist: string;
-    genre: GenreValueObject[];
+  name: string;
+  artist: string;
+  genre: GenreValueObject[];
 
-    deleted: boolean;
+  deleted: boolean;
 
-    updateMetadata (metadata: Partial<Omit<TrackProps, 'id' | 'deleted'>>): void {
-        Object.assign(this, metadata)
-    }
+  updateMetadata(metadata: Partial<Omit<TrackProps, 'id' | 'deleted'>>): void {
+    Object.assign(this, metadata);
+  }
 
-    delete (): void {
-        this.deleted = true;
-    }
+  delete(): void {
+    this.deleted = true;
+  }
 
-    static create (props: Omit<TrackProps, 'id'>): Track {
-        return new Track({...props, id: TrackId.create()})
-    }
+  static create(props: Omit<TrackProps, 'id'>): Track {
+    return new Track({ ...props, id: TrackId.create() });
+  }
 }
