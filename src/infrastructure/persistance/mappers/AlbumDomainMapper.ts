@@ -16,13 +16,7 @@ export default class AlbumDomainMapper {
 
 
     public mapToDomainModel(album: Album, tracks: Track[]): AggregateAlbum {
-        const matchingTracks = tracks.filter(track => album.trackIds.includes(track.id))
-        if (matchingTracks.length != album.trackIds.length) {
-            this.logger.warn("Failed to map album to domain, invalid tracks provided.")
-            throw new Error("Album Tracks Mismatch!")
-        }
-
-        const mappedTracks: TrackEntity[] = matchingTracks.map(track => 
+        const mappedTracks: TrackEntity[] = tracks.map(track => 
             new TrackEntity({
                 id: new TrackId(track.id),
                 name: track.name,
