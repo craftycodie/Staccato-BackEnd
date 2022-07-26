@@ -9,7 +9,6 @@ const migration: IMigration = {
         primaryKey: true,
       },
       name: DataTypes.STRING,
-      deleted: DataTypes.BOOLEAN,
 
       // Sequelize model fields.
       createdAt: DataTypes.DATE,
@@ -29,7 +28,6 @@ const migration: IMigration = {
       artist: DataTypes.STRING,
       name: DataTypes.STRING,
       genre: DataTypes.STRING,
-      deleted: DataTypes.BOOLEAN,
 
       // Sequelize model fields.
       createdAt: DataTypes.DATE,

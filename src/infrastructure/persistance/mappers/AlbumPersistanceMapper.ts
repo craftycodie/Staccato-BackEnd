@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import Album from '../../../domain/aggregates/Album';
-import PersistanceAlbum from '../models/Album';
-import Track from '../models/Track';
+import AlbumModel from '../models/AlbumModel';
+import TrackModel from '../models/TrackModel';
 
 @Injectable()
 export default class AlbumPersistanceMapper {
   public mapToDataModel(album: Album): {
-    album: PersistanceAlbum;
-    tracks: Track[];
+    album: AlbumModel;
+    tracks: TrackModel[];
   } {
     return {
-      album: new PersistanceAlbum(
+      album: new AlbumModel(
         {
           id: album.id.value,
           name: album.name,
@@ -20,7 +20,7 @@ export default class AlbumPersistanceMapper {
       ),
       tracks: album.tracks.map(
         (track) =>
-          new Track(
+          new TrackModel(
             {
               id: track.id.value,
               albumId: album.id.value,

@@ -26,7 +26,6 @@ const demoTracks = [
     name: 'After you hear this you are older',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '2a0e20f4-4a8d-4832-9449-caf4bb4011ae',
@@ -34,7 +33,6 @@ const demoTracks = [
     name: 'I lack an emotion',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '0cfdc350-c2c6-4063-baf1-856ddc2e4271',
@@ -42,7 +40,6 @@ const demoTracks = [
     name: 'This song is not good',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '1b659f1b-d2bf-4dae-b3be-c5f593a0e959',
@@ -50,7 +47,6 @@ const demoTracks = [
     name: "I can't afford mastering",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '4dfeb157-1143-4f31-9c9f-1e7a0a7ab740',
@@ -58,7 +54,6 @@ const demoTracks = [
     name: 'Words you will never understand',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'e5fa7b15-301d-46da-b7bc-16015e95b83d',
@@ -66,7 +61,6 @@ const demoTracks = [
     name: 'Kitchens are best for making sound effects',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '1f5fd381-39f1-4a95-ab30-c469cdb47fdb',
@@ -74,7 +68,6 @@ const demoTracks = [
     name: 'Minecraft is acid',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'fb3cec0b-77a8-49b3-ad45-03921bd553c4',
@@ -82,7 +75,6 @@ const demoTracks = [
     name: 'I will perhaps never meet you in person',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '1544659e-941f-4808-a5fc-8e19461f4024',
@@ -90,7 +82,6 @@ const demoTracks = [
     name: 'In Berlin people act differently',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '9d3f501d-735d-4ef4-ba5c-761a5275c110',
@@ -98,7 +89,6 @@ const demoTracks = [
     name: 'Droopy likes ricochet',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '18e23d63-52b8-42ea-a908-1830823b9009',
@@ -106,7 +96,6 @@ const demoTracks = [
     name: 'Droopy likes your face',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '62c8530b-b88c-407a-9d2a-d26073302508',
@@ -114,7 +103,6 @@ const demoTracks = [
     name: "I don't need to know you to be in love",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'a582e824-b97a-4082-a2cf-116ec66f94d4',
@@ -122,7 +110,6 @@ const demoTracks = [
     name: 'Sometimes I make video game music',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '36fa0452-3152-4c3d-8c71-f18fb3f66797',
@@ -130,7 +117,6 @@ const demoTracks = [
     name: 'One second',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '65a79d12-dbc4-48db-b941-1eefc70fe63d',
@@ -138,7 +124,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '18d393f2-0814-4b15-956d-2823101286bd',
@@ -146,7 +131,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '4535e2d7-ae5e-4020-95dd-41a50bd2bf51',
@@ -154,7 +138,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '2464e71b-1836-4d64-9993-3a5945f7474e',
@@ -162,7 +145,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '13d2c83e-34f6-4928-af32-4970fbe2b6d7',
@@ -170,7 +152,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '4dd9c943-0cb5-47ad-af3d-1af3194291c4',
@@ -178,7 +159,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '91580d3e-bb90-4323-84ed-c45121019bc4',
@@ -186,7 +166,6 @@ const demoTracks = [
     name: "Long songs are for people who don't have time to make them short",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '844b6902-8745-4d22-b98d-13afe74d0802',
@@ -194,7 +173,6 @@ const demoTracks = [
     name: "If you don't know what to do just steal the amen break",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '52766c08-2ef1-410f-877c-dc352b350e6e',
@@ -202,7 +180,6 @@ const demoTracks = [
     name: 'Please do',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '69527d59-dbc3-41fe-93af-4dfc89822ca7',
@@ -210,7 +187,6 @@ const demoTracks = [
     name: '26',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '754a3895-7808-40fb-a759-1a93d7f77882',
@@ -218,7 +194,6 @@ const demoTracks = [
     name: 'Who cares but me',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'cf0d0e24-b512-4443-affb-84857663aae7',
@@ -226,7 +201,6 @@ const demoTracks = [
     name: "I don't sing",
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'f6e7b862-8101-4b55-a100-3e318ab8eb23',
@@ -234,7 +208,6 @@ const demoTracks = [
     name: 'I jate my hob',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: '6cafb288-a669-4b87-a656-6034ed275fe6',
@@ -242,7 +215,6 @@ const demoTracks = [
     name: 'Lack of creativity is dangerous in Berlin',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'b7f4b2a7-1ba6-482f-bb0b-4fc0c0a84632',
@@ -250,7 +222,6 @@ const demoTracks = [
     name: 'Life changing moments seem minor in pictures',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
   {
     id: 'f2bed18a-b5d2-4849-8fab-17158838102f',
@@ -258,7 +229,6 @@ const demoTracks = [
     name: 'What now?',
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
-    deleted: false,
   },
 ];
 
@@ -266,6 +236,5 @@ const demoAlbums = [
   {
     id: 'f1de2223-1d7e-4c98-a339-9da6db13e553',
     name: 'Life changing moments seem minor in pictures',
-    deleted: false,
   },
 ];

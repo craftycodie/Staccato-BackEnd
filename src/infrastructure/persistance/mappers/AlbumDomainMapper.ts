@@ -1,8 +1,8 @@
-import Album from '../models/Album';
-import AggregateAlbum from '../../../domain/aggregates/Album';
-import Track from '../models/Track';
+import AlbumModel from '../models/AlbumModel';
+import Album from '../../../domain/aggregates/Album';
+import TrackModel from '../models/TrackModel';
 import ILogger, { ILoggerSymbol } from '../../../ILogger';
-import TrackEntity from '../../../domain/entities/Track';
+import Track from '../../../domain/entities/Track';
 import { Inject, Injectable } from '@nestjs/common';
 import TrackId from 'src/domain/value-objects/TrackId';
 import AlbumId from 'src/domain/value-objects/AlbumId';
@@ -12,10 +12,10 @@ import Genre from 'src/domain/value-objects/Genre';
 export default class AlbumDomainMapper {
   constructor(@Inject(ILoggerSymbol) private readonly logger: ILogger) {}
 
-  public mapToDomainModel(album: Album, tracks: Track[]): AggregateAlbum {
-    const mappedTracks: TrackEntity[] = tracks.map(
+  public mapToDomainModel(album: AlbumModel, tracks: TrackModel[]): Album {
+    const mappedTracks: Track[] = tracks.map(
       (track) =>
-        new TrackEntity({
+        new Track({
           id: new TrackId(track.id),
           name: track.name,
           genre: track.genre.split(',').map((genre) => new Genre(genre)),
@@ -23,7 +23,7 @@ export default class AlbumDomainMapper {
         }),
     );
 
-    const aggregateAlbum = new AggregateAlbum({
+    const aggregateAlbum = new Album({
       id: new AlbumId(album.id),
       name: album.name,
       tracks: mappedTracks,

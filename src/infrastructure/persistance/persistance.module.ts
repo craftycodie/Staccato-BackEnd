@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { IAlbumRepositorySymbol } from 'src/domain/repositories/IAlbumRepository';
-import Album from './models/Album';
-import Track from './models/Track';
+import AlbumModel from './models/AlbumModel';
+import TrackModel from './models/TrackModel';
 import AlbumDomainMapper from './mappers/AlbumDomainMapper';
 import AlbumPersistanceMapper from './mappers/AlbumPersistanceMapper';
 import AlbumRepository from './repositories/AlbumRepository';
@@ -19,9 +19,9 @@ const persistanceSettings = new PersistanceSettings().get();
       username: persistanceSettings.user,
       password: persistanceSettings.password,
       database: persistanceSettings.database,
-      models: [Album, Track],
+      models: [AlbumModel, TrackModel],
     }),
-    SequelizeModule.forFeature([Album, Track]),
+    SequelizeModule.forFeature([AlbumModel, TrackModel]),
   ],
   providers: [
     {

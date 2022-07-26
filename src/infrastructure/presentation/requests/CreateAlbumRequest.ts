@@ -1,3 +1,3 @@
 export default interface CreateAlbumRequest {
-    name: string;
+  name: string;
 }

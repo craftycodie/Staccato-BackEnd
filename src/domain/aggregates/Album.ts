@@ -29,9 +29,17 @@ export default class Album implements AlbumProps {
     trackId: TrackId,
     updatedTrackMetadata: Partial<TrackProps>,
   ): void {
-    const track = this.tracks.filter((track) => track.id === trackId)[0];
+    const track = this.tracks.filter(
+      (track) => track.id.value === trackId.value,
+    )[0];
 
     track.updateMetadata(updatedTrackMetadata);
+  }
+
+  deleteTracks(trackIds: TrackId[]): void {
+    this.tracks = this.tracks.filter(
+      (track) => !trackIds.some((id) => id.value == track.id.value),
+    );
   }
 
   public static create(props: Omit<AlbumProps, 'id'>): Album {

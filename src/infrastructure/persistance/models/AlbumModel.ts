@@ -6,7 +6,7 @@ import {
   PrimaryKey,
   HasMany,
 } from 'sequelize-typescript';
-import Track from './Track';
+import TrackModel from './TrackModel';
 
 @Table
 export default class Album extends Model {
@@ -17,6 +17,6 @@ export default class Album extends Model {
   @Column
   name: string;
 
-  @HasMany(() => Track)
-  tracks: Track[];
+  @HasMany(() => TrackModel)
+  tracks: TrackModel[];
 }

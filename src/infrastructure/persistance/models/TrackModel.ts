@@ -6,7 +6,7 @@ import {
   PrimaryKey,
   ForeignKey,
 } from 'sequelize-typescript';
-import Album from './Album';
+import Album from './AlbumModel';
 
 @Table
 export default class Track extends Model {

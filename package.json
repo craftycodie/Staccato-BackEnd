@@ -21,7 +21,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "migrate": "node ./dist/src/infrastructure/persistance/scripts/migrate.js",
     "seed": "node ./dist/src/infrastructure/persistance/scripts/seed.js"
-
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -29,6 +28,7 @@
     "@nestjs/cqrs": "^9.0.1",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/sequelize": "^9.0.0",
+    "@sequelize/core": "^7.0.0-alpha.10",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

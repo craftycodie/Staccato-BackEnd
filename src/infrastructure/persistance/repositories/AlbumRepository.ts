@@ -5,10 +5,11 @@ import TrackId from 'src/domain/value-objects/TrackId';
 import AlbumAggregate from '../../../domain/aggregates/Album';
 import IAlbumRepository from '../../../domain/repositories/IAlbumRepository';
 import ILogger, { ILoggerSymbol } from '../../../ILogger';
-import Album from '../models/Album';
-import Track from '../models/Track';
+import Album from '../models/AlbumModel';
+import Track from '../models/TrackModel';
 import AlbumDomainMapper from '../mappers/AlbumDomainMapper';
 import AlbumPersistanceMapper from '../mappers/AlbumPersistanceMapper';
+import { Op } from 'sequelize';
 
 @Injectable()
 export default class AlbumRepository implements IAlbumRepository {
@@ -22,28 +23,36 @@ export default class AlbumRepository implements IAlbumRepository {
     private readonly albumPersistanceMapper: AlbumPersistanceMapper,
   ) {}
 
-  public async create(target: AlbumAggregate) {
-    this._save(target, true);
-  }
-
   public async save(target: AlbumAggregate) {
-    this._save(target);
-  }
-
-  private async _save(target: AlbumAggregate, isNewAlbum = false) {
     this.logger.debug(`Saving album ${target.name}.`);
 
     const { album, tracks } = this.mapToDataModel(target);
 
     await Promise.all(
       tracks.map(async (track) => {
-        track.isNewRecord = isNewAlbum;
-        await track.save();
+        await this.trackModel.upsert(track.get());
       }),
     );
 
-    album.isNewRecord = isNewAlbum;
-    await album.save();
+    const [updatedAlbum] = await this.albumModel.upsert(album.get());
+
+    if (target.tracks.length > 0) {
+      // Remove any trax that have been deleted from the agg
+      // This is a bit naf
+      await this.trackModel.destroy(
+        target.tracks.length > 0
+          ? {
+              where: {
+                id: {
+                  [Op.notIn]: target.tracks.map((track) => track.id.value),
+                },
+              },
+            }
+          : {},
+      );
+    }
+
+    return this.mapToAggregateRoot(updatedAlbum, tracks);
   }
 
   public async delete(id: AlbumId) {

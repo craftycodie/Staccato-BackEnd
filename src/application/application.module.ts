@@ -2,13 +2,19 @@ import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { PersistanceModule } from 'src/infrastructure/persistance/persistance.module';
 import { CreateAlbumCommandHandler } from './commandHandlers/CreateAlbumCommandHandler';
+import { CreateAlbumTrackCommandHandler } from './commandHandlers/CreateAlbumTrackCommandHandler';
 import { DeleteAlbumCommandHandler } from './commandHandlers/DeleteAlbumCommandHandler';
+import { DeleteAlbumTracksCommandHandler } from './commandHandlers/DeleteAlbumTracksCommandHandler';
+import { UpdateAlbumTrackCommandHandler } from './commandHandlers/UpdateAlbumTrackCommandHandler';
 import { ListAlbumsQueryHandler } from './queryHandlers/ListAlbumsQueryHandler';
 
 export const QueryHandlers = [ListAlbumsQueryHandler];
 export const CommandHandlers = [
   DeleteAlbumCommandHandler,
   CreateAlbumCommandHandler,
+  CreateAlbumTrackCommandHandler,
+  DeleteAlbumTracksCommandHandler,
+  UpdateAlbumTrackCommandHandler,
 ];
 
 @Module({
