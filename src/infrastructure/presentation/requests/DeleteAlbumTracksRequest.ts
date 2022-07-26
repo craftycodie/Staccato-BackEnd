@@ -1,3 +1,6 @@
-export default interface DeleteAlbumTracksRequest {
+import { ApiProperty } from '@nestjs/swagger';
+
+export default class DeleteAlbumTracksRequest {
+  @ApiProperty()
   trackIds: string[];
 }

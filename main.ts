@@ -1,34 +1,19 @@
-
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { StaccatoModule } from './src/staccato.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(StaccatoModule);
+
+  const config = new DocumentBuilder()
+    .setTitle('Staccato')
+    .setDescription('Album Database API')
+    .setVersion('1.0')
+    .addTag('artlist')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   await app.listen(8080);
 }
 bootstrap();
-
-// import CoreDependencyIdentifiers from './src/CoreDependencyIdentifiers';
-// import ILogger from './src/ILogger';
-// import Server from './src/infrastructure/presentation/Server';
-// import CoreModule from './src/CoreModule';
-// import PresentationDependencyIdentifiers from './src/infrastructure/presentation/PresentationDependencyIdentifiers';
-// import MySQLConnection from './src/infrastructure/persistance/MySQLConnection';
-// import PersistanceDependencyIdentifiers from './src/infrastructure/persistance/PersistanceDependencyIdentifiers';
-
-// const container = new CoreModule().container;
-
-// const server = container.get<Server>(PresentationDependencyIdentifiers.Server);
-// const mysqlConnection = container.get<MySQLConnection>(PersistanceDependencyIdentifiers.MySQLConnection);
-
-// const logger = container.get<ILogger>(CoreDependencyIdentifiers.ILogger);
-
-// const main = async () => {
-//     logger.debug("Connecting to MySQL Database...")
-//     await mysqlConnection.connect();
-    
-//     logger.debug("Starting server...")
-//     await server.start();
-// }
-
-// main();
