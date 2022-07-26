@@ -10,21 +10,27 @@ export default class AlbumPersistanceMapper {
     tracks: Track[];
   } {
     return {
-      album: new PersistanceAlbum({
-        id: album.id.toString(),
-        name: album.name,
-        trackIds: album.tracks.map((track) => track.id.toString()),
-        deleted: album.deleted,
-      }),
+      album: new PersistanceAlbum(
+        {
+          id: album.id.value,
+          name: album.name,
+          trackIds: album.tracks.map((track) => track.id.value),
+          deleted: album.deleted,
+        },
+        { isNewRecord: false },
+      ),
       tracks: album.tracks.map(
         (track) =>
-          new Track({
-            id: track.id.toString(),
-            albumId: album.id.toString(),
-            name: track.name,
-            genre: track.genre.join(','),
-            deleted: track.deleted,
-          }),
+          new Track(
+            {
+              id: track.id.value,
+              albumId: album.id.value,
+              name: track.name,
+              genre: track.genre.map((genre) => genre.value).join(','),
+              deleted: track.deleted,
+            },
+            { isNewRecord: false },
+          ),
       ),
     };
   }

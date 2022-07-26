@@ -29,12 +29,13 @@ export default class Album implements AlbumProps {
     this.tracks.push(track);
   }
 
-  delete(): void {
+  delete = (): void => {
     this.deleted = true;
-  }
+    this.tracks.forEach((track) => track.delete());
+  };
 
   deleteTracks(trackIds: TrackId[]): void {
-    var matchingTracks = this.tracks.filter((track) =>
+    const matchingTracks = this.tracks.filter((track) =>
       trackIds.includes(track.id),
     );
 
@@ -53,7 +54,7 @@ export default class Album implements AlbumProps {
     trackId: TrackId,
     updatedTrackMetadata: Partial<TrackProps>,
   ): void {
-    var track = this.tracks.filter((track) => track.id === trackId)[0];
+    const track = this.tracks.filter((track) => track.id === trackId)[0];
 
     track.updateMetadata(updatedTrackMetadata);
   }

@@ -1,19 +1,25 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Delete, Get, Inject, Param } from '@nestjs/common';
 import ILogger, { ILoggerSymbol } from '../../../ILogger';
-import { QueryBus } from '@nestjs/cqrs';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ListAlbumsQuery } from 'src/application/queries/ListAlbumsQuery';
+import { DeleteAlbumCommand } from 'src/application/commands/DeleteAlbumCommand';
+import AlbumId from 'src/domain/value-objects/AlbumId';
 
-@Controller()
+@Controller('/api/albums')
 export class AlbumController {
   constructor(
     @Inject(ILoggerSymbol) private readonly logger: ILogger,
     private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get()
-  async getHello() {
-    this.logger.debug('Hit Controller.');
-    const res = await this.queryBus.execute(new ListAlbumsQuery(10));
-    return res;
+  async getAlbums() {
+    return await this.queryBus.execute(new ListAlbumsQuery(10));
+  }
+
+  @Delete(':id')
+  async deleteAlbum(@Param('id') id: string) {
+    await this.commandBus.execute(new DeleteAlbumCommand(new AlbumId(id)));
   }
 }

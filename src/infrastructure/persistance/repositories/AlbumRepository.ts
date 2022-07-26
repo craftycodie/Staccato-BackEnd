@@ -9,6 +9,7 @@ import Album from '../models/Album';
 import Track from '../models/Track';
 import AlbumDomainMapper from '../mappers/AlbumDomainMapper';
 import AlbumPersistanceMapper from '../mappers/AlbumPersistanceMapper';
+import { async } from 'rxjs';
 
 @Injectable()
 export default class AlbumRepository implements IAlbumRepository {
@@ -22,14 +23,31 @@ export default class AlbumRepository implements IAlbumRepository {
     private readonly albumPersistanceMapper: AlbumPersistanceMapper,
   ) {}
 
-  public async save(target: AlbumAggregate) {
+  public async save(target: AlbumAggregate, isNewAlbum = false) {
     this.logger.debug(`Saving album ${target.name}.`);
+
+    const { album, tracks } = this.mapToDataModel(target);
+
+    await Promise.all(
+      tracks.map(async (track) => {
+        track.isNewRecord = isNewAlbum;
+        await track.save();
+      }),
+    );
+
+    album.isNewRecord = isNewAlbum;
+    await album.save();
   }
 
   public async findById(id: AlbumId) {
-    this.logger.debug(`Fetching album ${id}.`);
+    const album = await this.albumModel.findOne({
+      where: { id: id.value, deleted: false },
+    });
+    const tracks = await this.trackModel.findAll({
+      where: { albumId: id.value, deleted: false },
+    });
 
-    return null;
+    return this.mapToAggregateRoot(album, tracks);
   }
 
   public async findByTrackId(id: TrackId) {
@@ -42,12 +60,14 @@ export default class AlbumRepository implements IAlbumRepository {
     this.logger.debug(`Listing albums.`);
 
     // Grab all albums (limtied by the provided count)
-    const albums = await this.albumModel.findAll({ limit: count });
-
+    const albums = await this.albumModel.findAll({
+      limit: count,
+      where: { deleted: false },
+    });
 
     // Grab all tracks matching the albums
     const tracks = await this.trackModel.findAll({
-      where: { albumId: albums.map((album) => album.id) },
+      where: { albumId: albums.map((album) => album.id), deleted: false },
     });
 
     const albumsAndTracks: { album: Album; tracks: Track[] }[] = albums.map(

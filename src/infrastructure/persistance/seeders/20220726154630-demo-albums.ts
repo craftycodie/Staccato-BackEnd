@@ -3,8 +3,8 @@ import IMigration from '../IMigration';
 
 const seeder: IMigration = {
   up: async (queryInterface: QueryInterface) => {
-    await queryInterface.bulkInsert('Tracks', demoTracks);
     await queryInterface.bulkInsert('Albums', demoAlbums);
+    await queryInterface.bulkInsert('Tracks', demoTracks);
   },
 
   down: async (queryInterface) => {
@@ -266,5 +266,6 @@ const demoAlbums = [
   {
     id: 'f1de2223-1d7e-4c98-a339-9da6db13e553',
     name: 'Life changing moments seem minor in pictures',
+    deleted: false,
   },
 ];

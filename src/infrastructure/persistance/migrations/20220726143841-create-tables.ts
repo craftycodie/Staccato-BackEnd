@@ -9,7 +9,7 @@ const migration: IMigration = {
         primaryKey: true,
       },
       name: DataTypes.STRING,
-      deleted: DataTypes.TINYINT({ length: 1 }),
+      deleted: DataTypes.BOOLEAN,
 
       // Sequelize model fields.
       createdAt: DataTypes.DATE,
@@ -24,11 +24,12 @@ const migration: IMigration = {
       },
       albumId: {
         type: DataTypes.STRING(36),
+        references: { model: 'Albums', key: 'id' },
       },
       artist: DataTypes.STRING,
       name: DataTypes.STRING,
       genre: DataTypes.STRING,
-      deleted: DataTypes.TINYINT({ length: 1 }),
+      deleted: DataTypes.BOOLEAN,
 
       // Sequelize model fields.
       createdAt: DataTypes.DATE,
