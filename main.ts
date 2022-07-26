@@ -9,7 +9,6 @@ async function bootstrap() {
     .setTitle('Staccato')
     .setDescription('Album Database API')
     .setVersion('1.0')
-    .addTag('artlist')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
