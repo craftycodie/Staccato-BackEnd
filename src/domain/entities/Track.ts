@@ -7,8 +7,6 @@ export interface TrackProps {
   name: string;
   artist: string;
   genre: GenreValueObject[];
-
-  deleted: boolean;
 }
 
 export default class Track implements TrackProps {
@@ -22,14 +20,8 @@ export default class Track implements TrackProps {
   artist: string;
   genre: GenreValueObject[];
 
-  deleted: boolean;
-
-  updateMetadata(metadata: Partial<Omit<TrackProps, 'id' | 'deleted'>>): void {
+  updateMetadata(metadata: Partial<Omit<TrackProps, 'id'>>): void {
     Object.assign(this, metadata);
-  }
-
-  delete(): void {
-    this.deleted = true;
   }
 
   static create(props: Omit<TrackProps, 'id'>): Track {

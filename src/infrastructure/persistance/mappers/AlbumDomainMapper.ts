@@ -20,7 +20,6 @@ export default class AlbumDomainMapper {
           name: track.name,
           genre: track.genre.split(',').map((genre) => new Genre(genre)),
           artist: track.artist,
-          deleted: track.deleted,
         }),
     );
 
@@ -28,7 +27,6 @@ export default class AlbumDomainMapper {
       id: new AlbumId(album.id),
       name: album.name,
       tracks: mappedTracks,
-      deleted: album.deleted,
     });
 
     return aggregateAlbum;

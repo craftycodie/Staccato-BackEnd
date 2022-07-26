@@ -26,7 +26,4 @@ export default class Track extends Model {
   // This is because I'm testing with a DB that does not support arrays and cba to setup a Genre table for this.
   @Column(DataType.STRING)
   genre: string;
-
-  @Column
-  deleted: boolean;
 }

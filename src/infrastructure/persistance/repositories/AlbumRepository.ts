@@ -9,7 +9,6 @@ import Album from '../models/Album';
 import Track from '../models/Track';
 import AlbumDomainMapper from '../mappers/AlbumDomainMapper';
 import AlbumPersistanceMapper from '../mappers/AlbumPersistanceMapper';
-import { async } from 'rxjs';
 
 @Injectable()
 export default class AlbumRepository implements IAlbumRepository {
@@ -23,7 +22,15 @@ export default class AlbumRepository implements IAlbumRepository {
     private readonly albumPersistanceMapper: AlbumPersistanceMapper,
   ) {}
 
-  public async save(target: AlbumAggregate, isNewAlbum = false) {
+  public async create(target: AlbumAggregate) {
+    this._save(target, true);
+  }
+
+  public async save(target: AlbumAggregate) {
+    this._save(target);
+  }
+
+  private async _save(target: AlbumAggregate, isNewAlbum = false) {
     this.logger.debug(`Saving album ${target.name}.`);
 
     const { album, tracks } = this.mapToDataModel(target);
@@ -39,12 +46,17 @@ export default class AlbumRepository implements IAlbumRepository {
     await album.save();
   }
 
+  public async delete(id: AlbumId) {
+    await this.trackModel.destroy({ where: { albumId: id.value } });
+    await this.albumModel.destroy({ where: { id: id.value } });
+  }
+
   public async findById(id: AlbumId) {
     const album = await this.albumModel.findOne({
-      where: { id: id.value, deleted: false },
+      where: { id: id.value },
     });
     const tracks = await this.trackModel.findAll({
-      where: { albumId: id.value, deleted: false },
+      where: { albumId: id.value },
     });
 
     return this.mapToAggregateRoot(album, tracks);
@@ -62,12 +74,11 @@ export default class AlbumRepository implements IAlbumRepository {
     // Grab all albums (limtied by the provided count)
     const albums = await this.albumModel.findAll({
       limit: count,
-      where: { deleted: false },
     });
 
     // Grab all tracks matching the albums
     const tracks = await this.trackModel.findAll({
-      where: { albumId: albums.map((album) => album.id), deleted: false },
+      where: { albumId: albums.map((album) => album.id) },
     });
 
     const albumsAndTracks: { album: Album; tracks: Track[] }[] = albums.map(

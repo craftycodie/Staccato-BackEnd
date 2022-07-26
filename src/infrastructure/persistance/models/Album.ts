@@ -17,9 +17,6 @@ export default class Album extends Model {
   @Column
   name: string;
 
-  @Column
-  deleted: boolean;
-
   @HasMany(() => Track)
   tracks: Track[];
 }

@@ -8,8 +8,6 @@ interface AlbumProps {
 
   name: string;
   tracks: Track[];
-
-  deleted: boolean;
 }
 
 export default class Album implements AlbumProps {
@@ -23,31 +21,8 @@ export default class Album implements AlbumProps {
   public name: string;
   public tracks: Track[];
 
-  public deleted: boolean;
-
   addTrack(track: Track): void {
     this.tracks.push(track);
-  }
-
-  delete = (): void => {
-    this.deleted = true;
-    this.tracks.forEach((track) => track.delete());
-  };
-
-  deleteTracks(trackIds: TrackId[]): void {
-    const matchingTracks = this.tracks.filter((track) =>
-      trackIds.includes(track.id),
-    );
-
-    // if (matchingTracks.length != trackIds.length) {
-    // 				return Result.fail(
-    // 		'Invalid Genre. Max 80 chars',
-    // 	);
-    // }
-
-    matchingTracks.forEach((track) => {
-      track.delete();
-    });
   }
 
   updateTrack(
@@ -59,7 +34,7 @@ export default class Album implements AlbumProps {
     track.updateMetadata(updatedTrackMetadata);
   }
 
-  public static create(props: AlbumProps): Album {
+  public static create(props: Omit<AlbumProps, 'id'>): Album {
     return new Album({ ...props, id: AlbumId.create() });
   }
 }
