@@ -6,18 +6,13 @@ This project is a basic web API holding song and album information.
 1. Install dependencies with the `npm install` command.
 2. Prepare create a `settings.json` file in the project root, following this structure:
 
-```json
-{
-    "presentation": {
-        "port": 8080 // Web API port
-    },
-    "persistance": { // MySQL Database Connection Info
-        "host": "127.0.0.1",
-        "user": "root",
-        "password": "root",
-        "database": "staccato"
-    }
-}
+```env
+  API_PORT=8080
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_USER=root
+  DB_PASSWORD=root
+  DB_NAME=staccato
 ```
 
 3. Build the web service with the `npm run build` command.
@@ -36,6 +31,14 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+### Running in Docker
+
+1. Run the `npm run build:docker` command to build the docker container.
+2. Run the `npm run start:docker` command to compose and start.
+
+In the case of port conflicts, review/edit the `docker-compose.yml` file accordingly.
+The docker container is built with seeding for demo purposes. If desired this can be removed from the `Dockerfile`.
 
 ## Documentation
 

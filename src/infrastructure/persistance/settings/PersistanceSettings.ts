@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import AbstractJsonFileSettings from '../../AbstractJsonFileSettings';
+import AbstractEnvSettings from '../../AbstractEnvSettings';
 import { PersistanceSettingsProps } from './IPersistanceSettings';
 
 @Injectable()
-export default class PersistanceSettings extends AbstractJsonFileSettings<PersistanceSettingsProps> {
+export default class PersistanceSettings extends AbstractEnvSettings<PersistanceSettingsProps> {
   public get() {
     return <PersistanceSettingsProps>this.getFullConfig().persistance;
   }

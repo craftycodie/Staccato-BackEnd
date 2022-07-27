@@ -3,6 +3,7 @@ export interface PersistanceSettingsProps {
   user: string;
   password: string;
   database: string;
+  port: number;
 }
 
 export default interface IPersistanceSettings {

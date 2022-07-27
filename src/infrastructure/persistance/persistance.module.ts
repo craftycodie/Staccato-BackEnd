@@ -15,7 +15,7 @@ const persistanceSettings = new PersistanceSettings().get();
     SequelizeModule.forRoot({
       dialect: 'mysql',
       host: persistanceSettings.host,
-      port: 3306,
+      port: persistanceSettings.port,
       username: persistanceSettings.user,
       password: persistanceSettings.password,
       database: persistanceSettings.database,
