@@ -1,4 +1,4 @@
-# Staccato Back-End
+# Staccato Back-End [![Build status](https://ci.appveyor.com/api/projects/status/gqxshmc8jhn725yf?svg=true)](https://ci.appveyor.com/project/craftycodie/staccato-backend)
 This project is a basic web API holding song and album information.
 
 ## Preparing the project
@@ -40,6 +40,13 @@ $ npm run start:prod
 In the case of port conflicts, review/edit the `docker-compose.yml` file accordingly.
 The docker container is built with seeding for demo purposes. If desired this can be removed from the `Dockerfile`.
 
+## Continuous Integration / Delivery
+
+A basic AppVeyor pipeline has been included in this project.
+The pipeline simply builds the JavaScript, uploads the "dist" folder as an artifact and calls a webhook.
+
+The pipeline does not build or push the docker image, or actually deploy anywhere, if deployment is required, a deployment webhook may suite.
+
 ## Documentation
 
 Once the app is running, swagger documentation can be found at the /api route.
@@ -61,3 +68,8 @@ $ npm run test:cov
 ## Support
 
 contact Codie Stella for support.
+
+
+---
+
+Last Updated 27/07/22 by Codie Stella 🐧
