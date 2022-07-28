@@ -14,7 +14,10 @@ import { ListAlbumsQuery } from 'src/application/queries/ListAlbumsQuery';
 import { DeleteAlbumCommand } from 'src/application/commands/DeleteAlbumCommand';
 import AlbumId from 'src/domain/value-objects/AlbumId';
 import CreateAlbumRequest from '../requests/CreateAlbumRequest';
-import { CreateAlbumCommand } from 'src/application/commands/CreateAlbumCommand';
+import {
+  CreateAlbumCommand,
+  CreateAlbumCommandTrack,
+} from 'src/application/commands/CreateAlbumCommand';
 import CreateAlbumTrackRequest from '../requests/CreateAlbumTrackRequest';
 import { CreateAlbumTrackCommand } from 'src/application/commands/CreateAlbumTrackCommand';
 import Genre from 'src/domain/value-objects/Genre';
@@ -58,20 +61,30 @@ export class AlbumController {
   async createAlbum(@Body() createAlbumRequest: CreateAlbumRequest) {
     return this.mapToAlbumResponse(
       await this.commandBus.execute(
-        new CreateAlbumCommand(createAlbumRequest.name),
+        new CreateAlbumCommand(
+          createAlbumRequest.name,
+          createAlbumRequest.tracks.map(
+            (track) =>
+              new CreateAlbumCommandTrack(
+                track.name,
+                track.artist,
+                track.genre.map((genre) => new Genre(genre)),
+              ),
+          ),
+        ),
       ),
     );
   }
 
-  @Post(':id/tracks')
+  @Post(':albumId/tracks')
   async createAlbumTrack(
-    @Param('id') id: string,
+    @Param('albumId') albumId: string,
     @Body() createAlbumTrackRequest: CreateAlbumTrackRequest,
   ) {
     return this.mapToAlbumResponse(
       await this.commandBus.execute(
         new CreateAlbumTrackCommand(
-          new AlbumId(id),
+          new AlbumId(albumId),
           createAlbumTrackRequest.name,
           createAlbumTrackRequest.artist,
           createAlbumTrackRequest.genre.map((genre) => new Genre(genre)),

@@ -9,7 +9,7 @@ services:
       - MYSQL_DATABASE=staccato
       - MYSQL_ROOT_PASSWORD=root
     ports:
-      - '33060:33060'
+      - '3306:3306'
     volumes:
       - db:/var/lib/mysql
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql

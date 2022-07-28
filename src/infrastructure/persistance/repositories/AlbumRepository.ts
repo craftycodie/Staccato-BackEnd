@@ -28,13 +28,13 @@ export default class AlbumRepository implements IAlbumRepository {
 
     const { album, tracks } = this.mapToDataModel(target);
 
+    const [updatedAlbum] = await this.albumModel.upsert(album.get());
+
     await Promise.all(
       tracks.map(async (track) => {
         await this.trackModel.upsert(track.get());
       }),
     );
-
-    const [updatedAlbum] = await this.albumModel.upsert(album.get());
 
     if (target.tracks.length > 0) {
       // Remove any trax that have been deleted from the agg
@@ -43,6 +43,7 @@ export default class AlbumRepository implements IAlbumRepository {
         target.tracks.length > 0
           ? {
               where: {
+                albumId: target.id.value,
                 id: {
                   [Op.notIn]: target.tracks.map((track) => track.id.value),
                 },

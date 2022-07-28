@@ -1,22 +1,48 @@
-// import { Test, TestingModule } from '@nestjs/testing';
-// import { AppController } from './album.controller';
-// import { AppService } from './app.service';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AlbumController } from './album.controller';
+import { StaccatoModule } from '../../../staccato.module';
+import { CqrsModule } from '@nestjs/cqrs';
+import {
+  CommandHandlers,
+  QueryHandlers,
+} from 'src/application/application.module';
+import { IAlbumRepositorySymbol } from 'src/domain/repositories/IAlbumRepository';
 
-// describe('AppController', () => {
-//   let appController: AppController;
+describe('AlbumController', () => {
+  let albumController: AlbumController;
 
-//   beforeEach(async () => {
-//     const app: TestingModule = await Test.createTestingModule({
-//       controllers: [AppController],
-//       providers: [AppService],
-//     }).compile();
+  const dummyAlbumsResponse = [
+    {
+      id: 'foo',
+      name: 'bar album',
+      tracks: [],
+    },
+  ];
 
-//     appController = app.get<AppController>(AppController);
-//   });
+  beforeEach(async () => {
+    const app: TestingModule = await Test.createTestingModule({
+      imports: [StaccatoModule, CqrsModule],
+      controllers: [AlbumController],
+      providers: [
+        ...QueryHandlers,
+        ...CommandHandlers,
+        {
+          provide: IAlbumRepositorySymbol,
+          useValue: {
+            getAll: async () => {
+              return dummyAlbumsResponse;
+            },
+          },
+        },
+      ],
+    }).compile();
 
-//   describe('root', () => {
-//     it('should return "Hello World!"', () => {
-//       expect(appController.getHello()).toBe('Hello World!');
-//     });
-//   });
-// });
+    albumController = app.get<AlbumController>(AlbumController);
+  });
+
+  describe('root', () => {
+    it('should return "Hello World!"', async () => {
+      expect(await albumController.getAlbums()).toBe(dummyAlbumsResponse);
+    });
+  });
+});
