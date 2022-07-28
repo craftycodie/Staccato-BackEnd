@@ -24,6 +24,7 @@ export default class AlbumPersistanceMapper {
             {
               id: track.id.value,
               albumId: album.id.value,
+              artist: track.artist,
               name: track.name,
               genre: track.genre.map((genre) => genre.value).join(','),
             },

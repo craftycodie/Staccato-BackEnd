@@ -230,11 +230,100 @@ const demoTracks = [
     genre: 'ambient,dnb,house,electronica,breakbeat',
     artist: 'C418',
   },
+
+  {
+    id: '7d8fa6d7-2a49-41e9-b7f8-66350ce439aa',
+    name: 'Intro',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '70fbaf7b-619f-42fc-9757-7ad2ca9b4cf5',
+    name: 'Native',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: 'b5a77fa6-9d02-48f4-be75-37b938430319',
+    name: 'Decay',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '64818d21-fbc7-4542-a113-4e6fe910ba42',
+    name: 'Oort Cloud',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '838d8088-2b33-46c2-97a4-32565e00ab08',
+    name: 'Tides',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '4b11b974-49f1-4633-9b65-4828e555e3fe',
+    name: 'Nights (I Wish I Could Be There)',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '93fcfc2c-8c04-45b1-a610-7ac1fcecf277',
+    name: 'Odyssey',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '3f6e475d-ca93-4b23-89eb-f3dffefbaf99',
+    name: 'New Machines',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: 'b612d621-e0b9-41c6-a99b-e8ab2fea44d4',
+    name: 'Resonance',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '52493bd2-dda0-408c-9f1d-1361455a5a12',
+    name: 'Come Back Down',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: 'd4faf8e1-e85f-4c4f-a7c7-0a6d8b83bce9',
+    name: 'Half Moon',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
+  {
+    id: '83ba182b-b16c-44ef-b3f3-c1dae79893d0',
+    name: 'On The Way Out',
+    albumId: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    genre: 'synthwave',
+    artist: 'HOME',
+  },
 ];
 
 const demoAlbums = [
   {
     id: 'f1de2223-1d7e-4c98-a339-9da6db13e553',
     name: 'Life changing moments seem minor in pictures',
+  },
+  {
+    id: 'ff3f65c3-d7cc-4a24-b880-9b10dc8b9407',
+    name: 'Odyssey',
   },
 ];

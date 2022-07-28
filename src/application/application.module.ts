@@ -6,9 +6,10 @@ import { CreateAlbumTrackCommandHandler } from './commandHandlers/CreateAlbumTra
 import { DeleteAlbumCommandHandler } from './commandHandlers/DeleteAlbumCommandHandler';
 import { DeleteAlbumTracksCommandHandler } from './commandHandlers/DeleteAlbumTracksCommandHandler';
 import { UpdateAlbumTrackCommandHandler } from './commandHandlers/UpdateAlbumTrackCommandHandler';
+import { GetAlbumQueryHandler } from './queryHandlers/GetAlbumQueryHandler';
 import { ListAlbumsQueryHandler } from './queryHandlers/ListAlbumsQueryHandler';
 
-export const QueryHandlers = [ListAlbumsQueryHandler];
+export const QueryHandlers = [ListAlbumsQueryHandler, GetAlbumQueryHandler];
 export const CommandHandlers = [
   DeleteAlbumCommandHandler,
   CreateAlbumCommandHandler,

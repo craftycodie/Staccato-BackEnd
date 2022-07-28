@@ -25,6 +25,7 @@ import { UpdateAlbumTrackCommand } from 'src/application/commands/UpdateAlbumTra
 import UpdateAlbumTrackRequest from '../requests/UpdateAlbumTrackRequest';
 import Album from 'src/domain/aggregates/Album';
 import AlbumResponse from '../responses/AlbumResponse';
+import { GetAlbumQuery } from 'src/application/queries/GetAlbumQuery';
 
 @Controller('/api/albums')
 export class AlbumController {
@@ -36,8 +37,15 @@ export class AlbumController {
 
   @Get()
   async getAlbums() {
-    return (await this.queryBus.execute(new ListAlbumsQuery(10))).map((album) =>
+    return (await this.queryBus.execute(new ListAlbumsQuery(50))).map((album) =>
       this.mapToAlbumResponse(album),
+    );
+  }
+
+  @Get(':id')
+  async getAlbum(@Param('id') id: string) {
+    return this.mapToAlbumResponse(
+      await this.queryBus.execute(new GetAlbumQuery(new AlbumId(id))),
     );
   }
 
